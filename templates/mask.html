@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load dict_key %}
+{% load sub %}
+
+{% block content%}
+<ul>
+    {% for i in itmLst %}
+        {% if i.price|sub:avg < 0 %}
+            <li><a style="color: green;" href= {{ i.url }} > {{ i.name }} </a> Price : {{ i.price }} Avg Diff: {{ i.price|sub:avg }} Rating: {{i.rating}} num sold: {{ i.numSold }}</li>
+        {% else %}
+            <li><a style="color: red;" href= {{ i.url }} > {{ i.name }} </a> Price : {{ i.price }} Avg Diff: {{ i.price|sub:avg }} Rating: {{i.rating}}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endblock %}
