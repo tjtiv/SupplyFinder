@@ -1,7 +1,9 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block content %}
 <h1>Supply Finder</h1>
 <div>
-    <a href="mask/">Masks</a>
+    <a href="mask/"><img src={% static "mask.jpg" %} alt="My image"></a>
 </div>
 {% endblock %}

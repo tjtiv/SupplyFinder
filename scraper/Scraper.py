@@ -29,8 +29,17 @@ class Scraper:
             url = str(re.findall(r'href="(.*?)\?', x)[0])
             rating = re.findall(r'<span class="clipped">(.*?) out of', x)
             numSold = re.findall(r'<span class="NEGATIVE">(.*?)<\/span>', x)
+            img = re.findall(r'src="(.*?)"', x)
 
+            imgLength = len(img)
             plength = len(price)
+
+            if imgLength > 1:
+                img = img[1]
+            else:
+                img = img[0]
+
+#            img = img[3:imgLength-2]
 
             if plength < 28:
                 price = float(price[3:plength-2])
@@ -51,7 +60,8 @@ class Scraper:
                 'price'   : price,
                 'url'     : url,
                 'rating'  : rating,
-                'numSold' : numSold
+                'numSold' : numSold,
+                'img'     : img
             }]
             
             i += 1

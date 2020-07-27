@@ -6,6 +6,7 @@ class Item(models.Model):
     url = models.TextField()
     rating = models.TextField()
     numSold = models.TextField()
+    img = models.TextField()
 
 
     def __str__(self):

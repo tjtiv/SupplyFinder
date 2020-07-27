@@ -7,15 +7,17 @@ def mask_view(response, *args, **kwargs):
    scarper = Scraper("mask")
 
 
-#   for i in range(0, 21):
+#   for i in range(0, 2):
 #      scrapeDict = scarper.scrapePage(i)
 #
 #      for j in scrapeDict:
-#         Item.objects.create(name=j['name'], price=j['price'], url=j['url'], rating=j['rating'],  numSold=j['numSold'])
+#         Item.objects.create(name=j['name'], price=j['price'], url=j['url'], rating=j['rating'],  numSold=j['numSold'], img=j['img'])
    
    avgPrice = Item.objects.all().aggregate(Avg('price'))
    
-   itmLst = Item.objects.all()
+#   itmLst = Item.objects.all()
+
+   itmLst = Item.objects.order_by('price')
 
    con = {
       'avg'     : avgPrice['price__avg'],
