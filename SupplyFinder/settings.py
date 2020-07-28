@@ -121,4 +121,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = ["assets"]
+STATICFILES_DIRS = ["assets", "templates/css"]

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load dict_key %}
+{% load sub %}
+
+{% block content%}
+<table style="border-collapse: collapse;">
+    {% for i in itmLst %}
+        {% if i.price|sub:avg < 0 %}
+            <tr style="border: 1px solid green;">
+                <th>
+                    <img src= {{ i.img }} >
+                </th>
+                <th> 
+                    <ul>
+                        <li>
+                            <a style="color: green;" href= {{ i.url }} > {{ i.name }} </a> 
+                        </li>
+                        <li> Price : {{ i.price }} </li> 
+                        <li> Avg Diff: {{ i.price|sub:avg }} </li> 
+                        <li> Rating: {{i.rating}} </li>
+                        <li> Sold: {{ i.numSold }} </li>
+                    </ul>
+                </th>
+            </tr>
+        {% else %}
+        <tr style="border: 1px solid red;">
+            <th>
+                <img src= {{ i.img }} >
+            </th>
+            <th> 
+                <ul>
+                    <li>
+                        <a style="color: red;" href= {{ i.url }} > {{ i.name }} </a> 
+                    </li>
+                    <li> Price : {{ i.price }} </li> 
+                    <li> Avg Diff: {{ i.price|sub:avg }} </li> 
+                    <li> Rating: {{i.rating}} </li>
+                    <li> Sold: {{ i.numSold }} </li>
+                </ul>
+            </th>
+        </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+{% endblock %}

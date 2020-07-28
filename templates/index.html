@@ -3,7 +3,28 @@
 
 {% block content %}
 <h1>Supply Finder</h1>
-<div>
-    <a href="mask/"><img src={% static "mask.jpg" %} alt="My image"></a>
-</div>
+<table>
+    <tr>
+        <th>
+            <div class="container">
+                <img src={% static "mask.jpg" %} alt="Face Masks" class="image">
+                <a href="items/?itm=mask">
+                    <div class="overlay">
+                        <div class="text">Face Masks</div>
+                    </div>
+                </a>
+            </div>
+        </th>
+        <th>
+            <div class="container">
+                <img src={% static "handsan.jpeg" %} alt="Hand Sanitizer" class="image">
+                <a href="items/?itm=handSan">
+                    <div class="overlay">
+                        <div class="text">Hand Sanitizer</div>
+                    </div>
+                </a>
+            </div>
+        </th>
+    </tr>
+</table>
 {% endblock %}
