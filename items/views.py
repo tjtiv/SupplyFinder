@@ -9,11 +9,11 @@ def item_view(response, *args, **kwargs):
 
    print("RESPPPPP!!!: "+str(response.GET))
 
-   for i in range(0, 2):
-      scrapeDict = scarper.scrapePage(i)
-
-      for j in scrapeDict:
-         Item.objects.create(itemType=itm, name=j['name'], price=j['price'], url=j['url'], rating=j['rating'],  numSold=j['numSold'], img=j['img'])
+#   for i in range(1, 7662):
+#      scrapeDict = scarper.scrapePage(i)
+#
+#      for j in scrapeDict:
+#         Item.objects.create(itemType=itm, name=j['name'], price=j['price'], url=j['url'], rating=j['rating'],  numSold=j['numSold'], img=j['img'])
    
    avgPrice = Item.objects.all().filter(itemType=itm).aggregate(Avg('price'))
    
