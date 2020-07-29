@@ -3,16 +3,14 @@ import re
 
 class Scraper:
 
-    urlDict = {'mask'    : 'https://www.ebay.com/sch/?_nkw=face-mask&_pgn=',
-               'handSan' : 'https://www.ebay.com/sch/?_nkw=Hand-Sanitizer&_pgn=',
-               'ebay'    : 'https://www.ebay.com/sch/i.html?_nkw='}
+    urlDict = {'ebay'    : 'https://www.ebay.com/sch/?_nkw='}
     
 
     def __init__(self, item):
         self.item = item
 
     def scrapePage(self, numPage):
-        stream = os.popen('wget -qO- '+self.urlDict[self.item]+str(numPage))
+        stream = os.popen('wget -qO- '+self.urlDict['ebay']+self.item+'&_pgn='+str(numPage))
         out = stream.read()
         itemArr = re.findall(r'<li class="s-item(.*?)<\/li>', out)
         

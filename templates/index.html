@@ -5,10 +5,21 @@
 <h1>Supply Finder</h1>
 <table>
     <tr>
+        <form action="/items" method="get">
+            <th>
+                <label for="search">Search: </label>
+                <input type="text" id="search" name="itm">
+            </th>
+            <th>
+                <input type="submit" value="Search">
+            </th>
+        </form>
+    </tr>
+    <tr>
         <th>
             <div class="container">
                 <img src={% static "mask.jpg" %} alt="Face Masks" class="image">
-                <a href="items/?itm=mask">
+                <a href="items/?itm=face-mask">
                     <div class="overlay">
                         <div class="text">Face Masks</div>
                     </div>
@@ -18,7 +29,7 @@
         <th>
             <div class="container">
                 <img src={% static "handsan.jpeg" %} alt="Hand Sanitizer" class="image">
-                <a href="items/?itm=handSan">
+                <a href="items/?itm=hand-Sanitizer">
                     <div class="overlay">
                         <div class="text">Hand Sanitizer</div>
                     </div>
