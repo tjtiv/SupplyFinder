@@ -3,14 +3,14 @@ import re
 
 class Scraper:
 
-    urlDict = {'ebay'    : 'https://www.ebay.com/sch/?_nkw='}
+    urlDict = {'ebay'    : '"https://www.ebay.com/sch/i.html?_nkw='}
     
 
     def __init__(self, item):
         self.item = item
 
     def scrapePage(self, numPage):
-        stream = os.popen('wget -qO- '+self.urlDict['ebay']+self.item+'&_pgn='+str(numPage))
+        stream = os.popen('wget -qO- '+self.urlDict['ebay']+self.item+'&_pgn='+str(numPage)+'"')
         out = stream.read()
         itemArr = re.findall(r'<li class="s-item(.*?)<\/li>', out)
         
@@ -25,6 +25,7 @@ class Scraper:
             rating = re.findall(r'<span class=clipped>(.*?) out of', x)
             numSold = re.findall(r'<span class="BOLD NEGATIVE">(.*?)<\/span>', x)
             img = re.findall(r'src=(.*?)\s', x)
+            shipping = str(re.findall(r'<span class="s-item__shipping s-item__logisticsCost">(.*?)</span>', x)[0])
 
             nameLength = len(name)
             imgLength = len(img)
@@ -58,7 +59,8 @@ class Scraper:
                 'url'      : url,
                 'rating'   : rating,
                 'numSold'  : numSold,
-                'img'      : img
+                'img'      : img,
+                'shipping' : shipping
             }]
             
             i += 1

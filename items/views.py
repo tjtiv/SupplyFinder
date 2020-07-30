@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from scraper.Scraper import Scraper
+#from scraper.Analyzer import Analyzer
 from .models import Item
 from django.db.models import Avg
 
@@ -7,13 +8,18 @@ def item_view(response, *args, **kwargs):
    itm = response.GET['itm']
    scarper = Scraper(itm)
 
-   print("RESPPPPP!!!: "+str(response.GET))
-
-#   for i in range(1, 7662):
+#   for i in range(1, 2):
 #      scrapeDict = scarper.scrapePage(i)
 #
 #      for j in scrapeDict:
-#         Item.objects.create(itemType=itm, name=j['name'], price=j['price'], url=j['url'], rating=j['rating'],  numSold=j['numSold'], img=j['img'])
+#         Item.objects.create( itemType = itm, 
+#                              name     = j['name'], 
+#                              price    = j['price'], 
+#                              url      = j['url'], 
+#                              rating   = j['rating'],  
+#                              numSold  = j['numSold'], 
+#                              img      = j['img'], 
+#                              shipping = j['shipping'] )
    
    avgPrice = Item.objects.all().filter(itemType=itm).aggregate(Avg('price'))
    

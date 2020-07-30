@@ -8,6 +8,7 @@ class Item(models.Model):
     rating = models.TextField()
     numSold = models.TextField()
     img = models.TextField()
+    shipping = models.TextField()
 
 
     def __str__(self):

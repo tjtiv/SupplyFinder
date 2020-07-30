@@ -1,4 +1,4 @@
-from items.models import Item
+import numpy as np
 
 class Analyzer:
 
@@ -6,5 +6,10 @@ class Analyzer:
         self.itmLst = itmLst
 
 
-    def findAvgDiff(self):
+    def createItmGraph(self, num, sortedSold, sortedPrice):
+        itemMatrix = np.zeros((num,num))
+
+        #for i in sortedPrice:
+        #    i.pricePos=
+
 

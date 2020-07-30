@@ -2,18 +2,16 @@
 {% load static %}
 
 {% block content %}
-<h1>Supply Finder</h1>
+
 <table>
     <tr>
-        <form action="/items" method="get">
-            <th>
-                <label for="search">Search: </label>
-                <input type="text" id="search" name="itm">
-            </th>
-            <th>
-                <input type="submit" value="Search">
-            </th>
-        </form>
+        <div>
+            <form action="/items" method="get">
+                    <label for="search">Search: </label>
+                    <input type="text" id="search" name="itm">
+                    <input type="submit" value="Search">
+            </form>
+        </div>
     </tr>
     <tr>
         <div><h3>Recomended Items: </h3></div>
