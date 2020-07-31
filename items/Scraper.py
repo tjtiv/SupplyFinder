@@ -21,7 +21,7 @@ class Scraper:
         
         tempItmDict = []
 
-        url = self.urlDict['ebay']+self.item+'&_ipg=192&_pgn='+str(numPage)
+        url = self.urlDict['ebay']+self.item+'&_pgn='+str(numPage)
 
         pageBytes = requests.get(url).content
         pageText = pageBytes.decode('utf-8')
@@ -34,13 +34,14 @@ class Scraper:
             price = str(re.findall(r'<span class=s-item__price>(.*?)<\/span>', x))
             url = str(re.findall(r'href=(.*?)\?', x)[0])
             rating = re.findall(r'<span class=clipped>(.*?) out of', x)
-            numSold = re.findall(r'<span class="BOLD NEGATIVE">(.*?)<\/span>', x)
+            numSold = re.findall(r'<span class="BOLD NEGATIVE">(\d*.\d*).*?<\/span>', x)
             img = re.findall(r'src=(.*?)\s', x)
-            shipping = str(re.findall(r'<span class="s-item__shipping s-item__logisticsCost">(.*?)</span>', x)[0])
+            shipping = str(re.findall(r'<span class="s-item__shipping s-item__logisticsCost">(.*?)<\/span>', x)[0])
 
             nameLength = len(name)
             imgLength = len(img)
             plength = len(price)
+            shipLength = len(shipping)
 
             if name[0:7] == "['<span":
                 name = name[21:nameLength-9]
@@ -53,15 +54,30 @@ class Scraper:
                 img = img[0]
 
             if plength < 28:
-                price = float(price[3:plength-2])
+                price = round(float(price[3:plength-2]), 2)
             else:
-                price = float(price[3:plength-28])
+                price = round(float(price[3:plength-28]), 2)
 
             if rating == []:
-                rating = 'None'
+                rating = 0
+            else:
+                rating = float(rating[0])
 
             if numSold == []:
-                numSold = 'None'
+                numSold = 0
+            elif (numSold[0])[-1] == '+':
+                numSold = int((numSold[0])[0:-1])
+            elif len(numSold[0]) < 4:
+                numSold = int(numSold[0])
+            else:
+                numSold = int(numSold[0].replace(',',''))
+
+            if shipping == 'Free shipping':
+                shipping = 0
+            else:
+                shipping = float(shipping[3:shipLength-9])
+
+            print(shipping)
 
             tempItmDict += [{
                 'itemType' : self.item,
@@ -82,7 +98,7 @@ class Scraper:
     def scrapePageRange(self, pgRange):
         for i in pgRange:
             scrapeDict = self.scrapePage(i)
-            
+            #print(len(scrapeDict))
             for j in scrapeDict:
                 Item.objects.create( itemType = self.item, 
                                     name     = j['name'], 
@@ -91,7 +107,8 @@ class Scraper:
                                     rating   = j['rating'],  
                                     numSold  = j['numSold'], 
                                     img      = j['img'], 
-                                    shipping = j['shipping'] )
+                                    shipping = j['shipping'],
+                                    score = 0 )
 
 
     def createScrapeThreads(self):

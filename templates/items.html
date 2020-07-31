@@ -6,10 +6,17 @@
 <table style="border-collapse: collapse;">
     <tr>
             <div class="sort">
-                <label class="sortItem">Price</label>
-                <label class="sortItem">Rating</label>
-                <label class="sortItem">Number Sold</label>
+                <a href="/items?sort=score&itm={{ itm }}"><input type="button" class="sortItem" value="Most Recomended"></a>
+                <a href="/items?sort=name&itm={{ itm }}"><input type="button" class="sortItem" value="Name"></a>
+                <a href="/items?sort=price&itm={{ itm }}"><input type="button" class="sortItem" value="Price"></a>
+                <a href="/items?sort=rating&itm={{ itm }}"><input type="button" class="sortItem" value="Rating"></a>
+                <a href="/items?sort=sold&itm={{ itm }}"><input type="button" class="sortItem" value="Number Sold"></a>
             </div>
+    </tr>
+    <tr>
+        <div class="sort">
+            <label class="sortItem">Average Price: {{ avg|price }}</label>
+        </div>
     </tr>
     {% for i in itmLst %}
         {% if i.price|sub:avg < 0 %}
@@ -22,9 +29,9 @@
                         <li>
                             <a style="color: green;" href= {{ i.url }} > {{ i.name }} </a> 
                         </li>
-                        <li> Price : {{ i.price }} </li>
-                        <li> Shipping: {{ i.shipping }} </li> 
-                        <li> Avg Diff: {{ i.price|sub:avg }} </li> 
+                        <li> Price : {{ i.price|price }} </li>
+                        <li> Shipping: {{ i.shipping|price }} </li> 
+                        <li> Avg Diff: {{ i.price|sub:avg|price }} </li> 
                         <li> Rating: {{i.rating}} </li>
                         <li> Sold: {{ i.numSold }} </li>
                     </ul>
@@ -40,9 +47,9 @@
                     <li>
                         <a style="color: red;" href= {{ i.url }} > {{ i.name }} </a> 
                     </li>
-                    <li> Price : {{ i.price }} </li>
-                    <li> Shipping: {{ i.shipping }} </li> 
-                    <li> Avg Diff: {{ i.price|sub:avg }} </li> 
+                    <li> Price : {{ i.price|price }} </li>
+                    <li> Shipping: {{ i.shipping|price }} </li> 
+                    <li> Avg Diff: {{ i.price|sub:avg|price }} </li> 
                     <li> Rating: {{i.rating}} </li>
                     <li> Sold: {{ i.numSold }} </li>
                 </ul>
