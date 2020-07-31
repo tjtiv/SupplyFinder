@@ -1,20 +1,31 @@
 import os
 import re
+import requests
+import concurrent.futures
+
+from .models import Item
+
 
 class Scraper:
 
-    urlDict = {'ebay'    : '"https://www.ebay.com/sch/i.html?_nkw='}
+    urlDict = {'ebay'    : 'https://www.ebay.com/sch/i.html?_nkw='}
     
 
     def __init__(self, item):
         self.item = item
 
     def scrapePage(self, numPage):
-        stream = os.popen('wget -qO- '+self.urlDict['ebay']+self.item+'&_pgn='+str(numPage)+'"')
-        out = stream.read()
-        itemArr = re.findall(r'<li class="s-item(.*?)<\/li>', out)
+        #stream = os.popen('wget -qO- "'+self.urlDict['ebay']+self.item+'&_pgn='+str(numPage)+'"')
+        #out = stream.read()
+        #itemArr = re.findall(r'<li class="s-item(.*?)<\/li>', out)
         
         tempItmDict = []
+
+        url = self.urlDict['ebay']+self.item+'&_ipg=192&_pgn='+str(numPage)
+
+        pageBytes = requests.get(url).content
+        pageText = pageBytes.decode('utf-8')
+        itemArr = re.findall(r'<li class="s-item(.*?)<\/li>', pageText)
 
         i=0
 
@@ -66,3 +77,35 @@ class Scraper:
             i += 1
 
         return tempItmDict
+
+
+    def scrapePageRange(self, pgRange):
+        for i in pgRange:
+            scrapeDict = self.scrapePage(i)
+            
+            for j in scrapeDict:
+                Item.objects.create( itemType = self.item, 
+                                    name     = j['name'], 
+                                    price    = j['price'], 
+                                    url      = j['url'], 
+                                    rating   = j['rating'],  
+                                    numSold  = j['numSold'], 
+                                    img      = j['img'], 
+                                    shipping = j['shipping'] )
+
+
+    def createScrapeThreads(self):
+        pageRangeList = [
+            range(1, 11),
+            range(11, 21),
+            range(21, 31),
+            range(31, 41),
+            range(41, 51),
+            range(51, 61),
+            range(61, 71),
+            range(71, 81),
+            range(91, 101)
+        ]
+
+        with concurrent.futures.ThreadPoolExecutor() as ex:
+            ex.map(self.scrapePageRange, pageRangeList)
