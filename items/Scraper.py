@@ -36,7 +36,7 @@ class Scraper:
             rating = re.findall(r'<span class=clipped>(.*?) out of', x)
             numSold = re.findall(r'<span class="BOLD NEGATIVE">(\d*.\d*).*?<\/span>', x)
             img = re.findall(r'src=(.*?)\s', x)
-            shipping = str(re.findall(r'<span class="s-item__shipping s-item__logisticsCost">(.*?)<\/span>', x)[0])
+            shipping = re.findall(r'<span class="s-item__shipping s-item__logisticsCost">(.*?)<\/span>', x)
 
             nameLength = len(name)
             imgLength = len(img)
@@ -63,7 +63,7 @@ class Scraper:
             else:
                 rating = float(rating[0])
 
-            if numSold == []:
+            if numSold == [] or (numSold[0])[0].isalpha():
                 numSold = 0
             elif (numSold[0])[-1] == '+':
                 numSold = int((numSold[0])[0:-1])
@@ -72,12 +72,10 @@ class Scraper:
             else:
                 numSold = int(numSold[0].replace(',',''))
 
-            if shipping == 'Free shipping':
+            if shipping == [] or shipping[0] == 'Free shipping':
                 shipping = 0
             else:
-                shipping = float(shipping[3:shipLength-9])
-
-            print(shipping)
+                shipping = float((shipping[0])[3:shipLength-9])
 
             tempItmDict += [{
                 'itemType' : self.item,

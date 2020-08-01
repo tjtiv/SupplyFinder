@@ -8,7 +8,10 @@
         <div>
             <form action="/items" method="get">
                     <label for="search">Search: </label>
+                    <input type="hidden" name="scrp" value="True">
+                    <input type="hidden" name="sort" value="score">
                     <input type="text" id="search" name="itm">
+                    <input type="hidden" name="pg" value="0">
                     <input type="submit" value="Search">
             </form>
         </div>
@@ -20,7 +23,7 @@
         <th>
             <div class="container">
                 <img src={% static "mask.jpg" %} alt="Face Masks" class="image">
-                <a href="items/?sort=score&itm=face-mask">
+                <a href="items/?scrp=False&sort=score&itm=face-mask&pg=0">
                     <div class="overlay">
                         <div class="text">Face Masks</div>
                     </div>
@@ -30,7 +33,7 @@
         <th>
             <div class="container">
                 <img src={% static "handsan.jpeg" %} alt="Hand Sanitizer" class="image">
-                <a href="items/?sort=score&itm=hand-sanitizer">
+                <a href="items/?scrp=False&sort=score&itm=hand-sanitizer&pg=0">
                     <div class="overlay">
                         <div class="text">Hand Sanitizer</div>
                     </div>
@@ -40,7 +43,7 @@
         <th>
             <div class="container">
                 <img src={% static "tp.jpeg" %} alt="toilet paper" class="image">
-                <a href="items/?sort=score&itm=toilet-paper">
+                <a href="items/?scrp=False&sort=score&itm=toilet-paper&pg=0">
                     <div class="overlay">
                         <div class="text">Toilet Paper</div>
                     </div>
@@ -50,7 +53,7 @@
         <th>
             <div class="container">
                 <img src={% static "can.jpg" %} alt="Canned Food" class="image">
-                <a href="items/?sort=score&itm=canned-food">
+                <a href="items/?scrp=False&sort=score&itm=canned-food&pg=0">
                     <div class="overlay">
                         <div class="text">Canned Food</div>
                     </div>
@@ -62,7 +65,7 @@
         <th>
             <div class="container">
                 <img src={% static "gloves.jpg" %} alt="Latex Gloves" class="image">
-                <a href="items/?sort=score&itm=latex-gloves">
+                <a href="items/?scrp=False&sort=score&itm=latex-gloves&pg=0">
                     <div class="overlay">
                         <div class="text">Latex Gloves</div>
                     </div>
@@ -72,7 +75,7 @@
         <th>
             <div class="container">
                 <img src={% static "thermometer.jpg" %} alt="Thermometer" class="image">
-                <a href="items/?sort=score&itm=thermometer">
+                <a href="items/?scrp=False&sort=score&itm=thermometer&pg=0">
                     <div class="overlay">
                         <div class="text">Thermometer</div>
                     </div>
@@ -82,7 +85,7 @@
         <th>
             <div class="container">
                 <img src={% static "wipes.jpeg" %} alt="Disinfecting Wipes" class="image">
-                <a href="items/?sort=score&itm=disinfecting-wipes">
+                <a href="items/?scrp=False&sort=score&itm=disinfecting-wipes&pg=0">
                     <div class="overlay">
                         <div class="text">Disinfecting Wipes</div>
                     </div>
@@ -92,7 +95,7 @@
         <th>
             <div class="container">
                 <img src={% static "soap.png" %} alt="Hand Soap" class="image">
-                <a href="items/?sort=score&itm=hand-soap">
+                <a href="items/?scrp=False&sort=score&itm=hand-soap&pg=0">
                     <div class="overlay">
                         <div class="text">Hand Soap</div>
                     </div>
@@ -104,7 +107,7 @@
         <th>
             <div class="container">
                 <img src={% static "tissues.jpg" %} alt="Tissues" class="image">
-                <a href="items/?sort=score&itm=tissues">
+                <a href="items/?scrp=False&sort=score&itm=tissues&pg=0">
                     <div class="overlay">
                         <div class="text">Tissues</div>
                     </div>

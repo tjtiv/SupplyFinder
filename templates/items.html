@@ -6,11 +6,11 @@
 <table style="border-collapse: collapse;">
     <tr>
             <div class="sort">
-                <a href="/items?sort=score&itm={{ itm }}"><input type="button" class="sortItem" value="Most Recomended"></a>
-                <a href="/items?sort=name&itm={{ itm }}"><input type="button" class="sortItem" value="Name"></a>
-                <a href="/items?sort=price&itm={{ itm }}"><input type="button" class="sortItem" value="Price"></a>
-                <a href="/items?sort=rating&itm={{ itm }}"><input type="button" class="sortItem" value="Rating"></a>
-                <a href="/items?sort=sold&itm={{ itm }}"><input type="button" class="sortItem" value="Number Sold"></a>
+                <a href="/items?scrp=False&sort=score&itm={{ itm }}&pg={{ pg }}"><input type="button" class="sortItem" value="Most Recomended"></a>
+                <a href="/items?scrp=False&sort=name&itm={{ itm }}&pg={{ pg }}"><input type="button" class="sortItem" value="Name"></a>
+                <a href="/items?scrp=False&sort=price&itm={{ itm }}&pg={{ pg }}"><input type="button" class="sortItem" value="Price"></a>
+                <a href="/items?scrp=False&sort=rating&itm={{ itm }}&pg={{ pg }}"><input type="button" class="sortItem" value="Rating"></a>
+                <a href="/items?scrp=False&sort=sold&itm={{ itm }}&pg={{ pg }}"><input type="button" class="sortItem" value="Number Sold"></a>
             </div>
     </tr>
     <tr>
@@ -20,36 +20,36 @@
     </tr>
     {% for i in itmLst %}
         {% if i.price|sub:avg < 0 %}
-            <tr style="border: 1px solid green;">
+            <tr class="item" style="border: 1px solid black;">
                 <th>
                     <img src= {{ i.img }} >
                 </th>
                 <th> 
-                    <ul>
+                    <ul style="list-style-type:none">
                         <li>
-                            <a style="color: green;" href= {{ i.url }} > {{ i.name }} </a> 
+                            <a href= {{ i.url }} > {{ i.name }} </a> 
                         </li>
                         <li> Price : {{ i.price|price }} </li>
                         <li> Shipping: {{ i.shipping|price }} </li> 
-                        <li> Avg Diff: {{ i.price|sub:avg|price }} </li> 
+                        <li style="color: green;"> {{ i.price|sub:avg|price }} below average price</li> 
                         <li> Rating: {{i.rating}} </li>
                         <li> Sold: {{ i.numSold }} </li>
                     </ul>
                 </th>
             </tr>
         {% else %}
-        <tr style="border: 1px solid red;">
+        <tr class="item" style="border: 1px solid black;">
             <th>
                 <img src= {{ i.img }} >
             </th>
             <th> 
-                <ul>
+                <ul style="list-style-type:none">
                     <li>
-                        <a style="color: red;" href= {{ i.url }} > {{ i.name }} </a> 
+                        <a href= {{ i.url }} > {{ i.name }} </a> 
                     </li>
                     <li> Price : {{ i.price|price }} </li>
                     <li> Shipping: {{ i.shipping|price }} </li> 
-                    <li> Avg Diff: {{ i.price|sub:avg|price }} </li> 
+                    <li style="color: red;"> {{ i.price|sub:avg|price }} above average price</li> 
                     <li> Rating: {{i.rating}} </li>
                     <li> Sold: {{ i.numSold }} </li>
                 </ul>
@@ -57,5 +57,13 @@
         </tr>
         {% endif %}
     {% endfor %}
+    <tr>
+        <th>
+            <a href="/items?scrp={{ scrp }}&sort={{ sort }}&itm={{ itm }}&pg={{ pg|add:-1 }}">Back</a>
+        </th>
+        <th>
+            <a href="/items?scrp={{ scrp }}&sort={{ sort }}&itm={{ itm }}&pg={{ pg|add:1 }}">Next</a>
+        </th>
+    </tr>
 </table>
 {% endblock %}

@@ -9,19 +9,26 @@ class Analyzer:
 
     def findItemScore(self):
         for item in self.itmLst:
-            totalSold = float(self.itmLst.aggregate(Sum('numSold'))['numSold__sum'])
-            soldScore = float(item.numSold/totalSold)
-            itemPrice = float(item.price + item.shipping)
-
-            if item.rating == 0:
-                ratingScore = 0
-            else:
+            
+            
+            try:
+                totalSold = float(self.itmLst.aggregate(Sum('numSold'))['numSold__sum'])
+                soldScore = float(item.numSold/totalSold)
+                itemPrice = float(item.price + item.shipping)
                 ratingScore = float(item.rating/5)
-
-            if (ratingScore+soldScore) == 0:
-                itemScore = 0
-            else:
                 itemScore = (ratingScore + soldScore) / itemPrice
+            except Exception as e:
+                itemScore = 0
+            
+            #if item.rating == 0:
+            #    ratingScore = 0
+            #else:
+            #    ratingScore = float(item.rating/5)
+
+            #if (ratingScore+soldScore) == 0:
+            #    itemScore = 0
+            #else:
+            #    itemScore = (ratingScore + soldScore) / itemPrice
 
             item.score = itemScore
             item.save()

@@ -2,6 +2,9 @@ from django.template.defaultfilters import register
 
 @register.filter(name='price')
 def price(n):
+    if n < 0:
+        n *= -1
+    
     nSplit = str(n).split('.')
 
     if len(nSplit) == 1:
