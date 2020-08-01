@@ -15,9 +15,6 @@ class Scraper:
         self.item = item
 
     def scrapePage(self, numPage):
-        #stream = os.popen('wget -qO- "'+self.urlDict['ebay']+self.item+'&_pgn='+str(numPage)+'"')
-        #out = stream.read()
-        #itemArr = re.findall(r'<li class="s-item(.*?)<\/li>', out)
         
         tempItmDict = []
 

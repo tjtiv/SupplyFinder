@@ -59,10 +59,10 @@
     {% endfor %}
     <tr>
         <th>
-            <a href="/items?scrp={{ scrp }}&sort={{ sort }}&itm={{ itm }}&pg={{ pg|add:-1 }}">Back</a>
+            <a href="/items?scrp=False&sort={{ sort }}&itm={{ itm }}&pg={{ pg|add:-1 }}">Back</a>
         </th>
         <th>
-            <a href="/items?scrp={{ scrp }}&sort={{ sort }}&itm={{ itm }}&pg={{ pg|add:1 }}">Next</a>
+            <a href="/items?scrp=False&sort={{ sort }}&itm={{ itm }}&pg={{ pg|add:1 }}">Next</a>
         </th>
     </tr>
 </table>
