@@ -13,7 +13,7 @@ def item_view(response, *args, **kwargs):
    startIndex = pg*30
    endIndex = startIndex+31
 
-   if scrapeFlag == 'False':
+   if scrapeFlag == 'True':
       scarper = Scraper(itm)
       scarper.createScrapeThreads()
 
